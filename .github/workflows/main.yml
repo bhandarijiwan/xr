@@ -6,9 +6,8 @@ on:
       - master
 
 jobs:
-  build:
-    runs-on: macos-latest
-
+  Build:
+    runs-on: ubuntu-latest
     steps:
       - name: Setup Node.js 12.x
         uses: actions/setup-node@master
@@ -19,3 +18,10 @@ jobs:
 
       - name: Install Dependencies
         run: npm ci
+
+  Build-Android:
+    needs: [Build]
+    runs-on: ubuntu-latest
+    steps:
+      - name: list files
+        run: ls -la
