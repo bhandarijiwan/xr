@@ -1,0 +1,4 @@
+name: Build Apk
+runs:
+  using: 'docker'
+  image: 'docker://docker.pkg.github.com/bhandarijiwan/docker-android/da:2.0'
