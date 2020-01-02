@@ -27,7 +27,12 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@master
-      - name: list files
-        run: ls -la
-      - name: Test adb
-        run: adb devices
+      - name: Install Dependencies
+        run: npm ci
+      - name: Build Apk
+        run: cd android && ./gradlew assembleDebug
+      - name: Archive artifacts
+        uses: actions/upload-artifact@v1
+        with:
+          name: Android
+          path: ./android/app/build/outputs
