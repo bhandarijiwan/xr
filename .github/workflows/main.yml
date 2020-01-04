@@ -48,11 +48,25 @@ jobs:
         with:
           name: Android
           path: ./android/app/build/outputs
-  # Build-iOS:
-  #   needs: [Build]
-  #   runs-on: macos-latest
-  #   steps:
-  #     - name: Checkout
-  #       uses: actions/checkout@master
-  #     - name: Install Dependencies
-  #       run: npm ci
+  Build-iOS:
+    needs: [Build]
+    runs-on: macos-latest
+    steps:
+      - name: Setup (Bundler)
+        run: |
+          if which ruby >/dev/null && which gem >/dev/null; then
+            GEM_HOME=$(ruby -r rubygems -e 'puts Gem.user_dir')/bin
+            echo "::add-path::$GEM_HOME"
+          fi
+          gem install bundler --user-install
+
+      - name: Checkout
+        uses: actions/checkout@master
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Setup (Fastlane)
+        run: |
+          cd ios 
+          bundle install
