@@ -70,3 +70,4 @@ jobs:
         run: |
           cd ios 
           bundle install
+          echo "fastlane version=$(bundle exec fastlane --version)"
